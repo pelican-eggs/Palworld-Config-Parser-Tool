@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"runtime"
 )
 
 func main() {
@@ -27,9 +28,21 @@ func main() {
 		// Add other keys as needed
 	}
 
+	// Determine the operating system
+	var osFolder string
+	switch runtime.GOOS {
+	case "windows":
+		osFolder = "WindowsServer"
+	case "linux":
+		osFolder = "LinuxServer"
+	default:
+		fmt.Println("Unsupported operating system")
+		return
+	}
+
 	// Get the absolute path to the INI file
-	iniFilePath, err := filepath.Abs("Pal/Saved/Config/LinuxServer/PalWorldSettings.ini")
-	if err != nil {
+	iniFilePath, err := filepath.Abs(fmt.Sprintf("Pal/Saved/Config/%s/PalWorldSettings.ini", osFolder))
+		if err != nil {
 		fmt.Printf("Error getting absolute path: %v\n", err)
 		return
 	}

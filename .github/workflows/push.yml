@@ -1,0 +1,64 @@
+name: Push
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+
+    if: ${{ !contains(github.event.head_commit.message, 'dev') }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        go: ["1.21.4"]
+        goos: [linux, windows]
+        goarch: [amd64, arm64]
+
+    steps:
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: go mod download
+        env:
+          CGO_ENABLED: 0
+        run: |
+          go mod download
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
+        run: |
+          go build -o dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          if [ "${{ matrix.goos }}" = "windows" ]; then
+            mv dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }} dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          fi
+          chmod 755 dist/*
+
+      - uses: actions/upload-artifact@v3
+        if: matrix.goos == 'linux'
+        with:
+          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
+
+      - uses: actions/upload-artifact@v3
+        if: matrix.goos == 'windows'
+        with:
+          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
