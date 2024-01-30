@@ -14,6 +14,7 @@ func main() {
 	envVars := map[string]string{
 		"ServerPlayerMaxNum": os.Getenv("MAX_PLAYERS"),
 		"ServerName":         os.Getenv("SERVER_NAME"),
+		"ServerDescription":         os.Getenv("SERVER_DESCRIPTION"),
 		"ServerPassword":     os.Getenv("SERVER_PASSWORD"),
 		"AdminPassword":      os.Getenv("ADMIN_PASSWORD"),
 		"PublicIP":           os.Getenv("PUBLIC_IP"),
@@ -29,6 +30,7 @@ func main() {
 		"ServerName":     true,
 		"ServerPassword": true,
 		"AdminPassword":  true,
+		"ServerDescription": true,
 		// Add other keys as needed
 	}
 
