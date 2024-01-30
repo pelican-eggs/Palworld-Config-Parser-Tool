@@ -11,11 +11,11 @@ import (
 func main() {
 	// Read environment variables
 	envVars := map[string]string{
-		"RCONEnabled":       os.Getenv("RCONENABLED"),
-		"ServerDescription": os.Getenv("SERVERDESCRIPTION"),
-		"RCONPort": os.Getenv("RCONPORT"),
-		"Difficulty": os.Getenv("DIFFICULT"),
-		"DayTimeSpeedRate": os.Getenv("DAYSPEED"),
+		"ServerPlayerMaxNum":       os.Getenv("MAX_PLAYERS"),
+		"ServerName":       os.Getenv("SERVER_NAME"),
+		"ServerPassword":       os.Getenv("SERVER_PASSWORD"),
+		"AdminPassword":       os.Getenv("ADMIN_PASSWORD"),
+		"PublicIP":       os.Getenv("PUBLIC_IP"),
 		// Add other environment variables and corresponding INI keys here
 	}
 
