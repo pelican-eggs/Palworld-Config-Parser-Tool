@@ -17,6 +17,7 @@ func main() {
 		"ServerPassword":     os.Getenv("SERVER_PASSWORD"),
 		"AdminPassword":      os.Getenv("ADMIN_PASSWORD"),
 		"PublicIP":           os.Getenv("PUBLIC_IP"),
+		"PublicPort":           os.Getenv("SERVER_PORT"),
 		"RCONPort":           os.Getenv("RCON_PORT"),
 		"RCONEnabled":        os.Getenv("RCON_ENABLE"),
 		"bEnableInvaderEnemy":        os.Getenv("ENABLE_ENEMY"),
