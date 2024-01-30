@@ -47,6 +47,12 @@ func main() {
 		return
 	}
 
+	// Check if the INI file exists
+	if _, err := os.Stat(iniFilePath); os.IsNotExist(err) {
+		fmt.Printf("INI file not found, Exiting")
+		return
+	}
+
 	// Read the contents of the original INI file
 	iniContent, err := ioutil.ReadFile(iniFilePath)
 	if err != nil {
