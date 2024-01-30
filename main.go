@@ -11,12 +11,20 @@ import (
 func main() {
 	// Read environment variables
 	envVars := map[string]string{
-		"ServerPlayerMaxNum":       os.Getenv("MAX_PLAYERS"),
-		"ServerName":       os.Getenv("SERVER_NAME"),
-		"ServerPassword":       os.Getenv("SERVER_PASSWORD"),
-		"AdminPassword":       os.Getenv("ADMIN_PASSWORD"),
-		"PublicIP":       os.Getenv("PUBLIC_IP"),
+		"ServerPlayerMaxNum": os.Getenv("MAX_PLAYERS"),
+		"ServerName":         os.Getenv("SERVER_NAME"),
+		"ServerPassword":     os.Getenv("SERVER_PASSWORD"),
+		"AdminPassword":      os.Getenv("ADMIN_PASSWORD"),
+		"PublicIP":           os.Getenv("PUBLIC_IP"),
 		// Add other environment variables and corresponding INI keys here
+	}
+
+	// Specify keys for which quotes should be added
+	envVarsQuotes := map[string]bool{
+		"ServerName":     true,
+		"ServerPassword": true,
+		"AdminPassword":  true,
+		// Add other keys as needed
 	}
 
 	// Get the absolute path to the INI file
@@ -33,19 +41,13 @@ func main() {
 		return
 	}
 
-	//fmt.Println("Original INI Content:")
-	// fmt.Println(string(iniContent))
-
 	// Update values based on environment variables
 	for key, value := range envVars {
 		if value != "" {
 			fmt.Printf("Updating key: %s with value: %s\n", key, value)
-			setINIValue(&iniContent, key, value)
+			setINIValue(&iniContent, key, value, envVarsQuotes[key])
 		}
 	}
-
-	//fmt.Println("\nUpdated INI Content:")
-	//fmt.Println(string(iniContent))
 
 	// Write the updated contents back to the INI file
 	err = ioutil.WriteFile(iniFilePath, iniContent, 0644)
@@ -58,7 +60,7 @@ func main() {
 }
 
 // setINIValue updates the value for the specified key in the INI content.
-func setINIValue(content *[]byte, key, value string) {
+func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 	// Convert content to string for easy manipulation
 	contentStr := string(*content)
 
@@ -80,9 +82,8 @@ func setINIValue(content *[]byte, key, value string) {
 		endPos = len(contentStr) - pos
 	}
 
-	// Check if the value contains spaces
-	if strings.Contains(value, " ") {
-		// If it contains spaces, add quotes around it
+	// If addQuotes is true and the key requires quotes, add quotes around the value
+	if addQuotes {
 		value = fmt.Sprintf(`"%s"`, value)
 	}
 
