@@ -177,3 +177,4 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 	// Update the content slice in place
 	*content = append((*content)[:start], append([]byte(value), (*content)[end:]...)...)
 }
+
