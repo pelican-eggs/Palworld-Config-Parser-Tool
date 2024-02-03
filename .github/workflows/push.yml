@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Setup Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
 
@@ -51,13 +51,13 @@ jobs:
           fi
           chmod 755 dist/*
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: matrix.goos == 'linux'
         with:
           name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
           path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: matrix.goos == 'windows'
         with:
           name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
