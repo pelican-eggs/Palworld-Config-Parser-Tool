@@ -62,3 +62,27 @@ jobs:
         with:
           name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
           path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-20.04
+
+    if: startsWith(github.event.head_commit.message, 'Release:')
+
+    steps:
+        uses: actions/checkout@v4
+
+      - name: Extract tag from commit message
+        id: extract_tag
+        run: echo "::set-output name=tag::$(echo ${{ github.event.head_commit.message }} | grep -oP 'Release: \K(.*)')"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files:
+            - 'dist/PalworldServerConfigParser-linux-amd64'
+            - 'dist/PalworldServerConfigParser-linux-arm64'
+            - 'dist/PalworldServerConfigParser-windows-amd64.exe'
+            - 'dist/PalworldServerConfigParser-windows-arm64.exe'
+          tag_name: v${{ steps.extract_tag.outputs.tag }}
+          title: ${{ steps.extract_tag.outputs.tag }}
