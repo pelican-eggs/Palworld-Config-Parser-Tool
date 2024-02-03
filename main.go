@@ -83,6 +83,7 @@ func main() {
 		"AdminPassword":  true,
 		"ServerDescription": true,
 		"BanListURL": true,
+		"PublicIP": true,
 		// Add other keys as needed
 	}
 
