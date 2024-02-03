@@ -70,7 +70,7 @@ jobs:
     if: startsWith(github.event.head_commit.message, 'Release:')
 
     steps:
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Extract tag from commit message
         id: extract_tag
@@ -86,3 +86,4 @@ jobs:
             - 'dist/PalworldServerConfigParser-windows-arm64.exe'
           tag_name: v${{ steps.extract_tag.outputs.tag }}
           title: ${{ steps.extract_tag.outputs.tag }}
+
