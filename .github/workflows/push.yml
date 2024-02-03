@@ -74,16 +74,17 @@ jobs:
 
       - name: Extract tag from commit message
         id: extract_tag
-        run: echo "::set-output name=tag::$(echo ${{ github.event.head_commit.message }} | grep -oP 'Release: \K(.*)')"
+        run: |
+          echo "::set-output name=tag::$(echo ${{ github.event.head_commit.message }} | grep -oP 'Release: \K(.*)')"
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files:
-            - 'dist/PalworldServerConfigParser-linux-amd64'
-            - 'dist/PalworldServerConfigParser-linux-arm64'
-            - 'dist/PalworldServerConfigParser-windows-amd64.exe'
-            - 'dist/PalworldServerConfigParser-windows-arm64.exe'
+          files: |
+            'dist/PalworldServerConfigParser-linux-amd64'
+            'dist/PalworldServerConfigParser-linux-arm64'
+            'dist/PalworldServerConfigParser-windows-amd64.exe'
+            'dist/PalworldServerConfigParser-windows-arm64.exe'
           tag_name: v${{ steps.extract_tag.outputs.tag }}
           title: ${{ steps.extract_tag.outputs.tag }}
 
