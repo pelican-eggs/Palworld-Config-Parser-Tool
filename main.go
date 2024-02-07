@@ -211,7 +211,8 @@ func main() {
 	}
 
 	// Check if PalWorldSettings.ini exists
-	if _, err := os.Stat(iniFilePath); os.IsNotExist(err) {
+	fileInfo, err := os.Stat(iniFilePath)
+	if os.IsNotExist(err) {
 		// PalWorldSettings.ini does not exist
 		// Check if DefaultPalWorldSettings.ini exists in the current directory
 		defaultIniPath := "DefaultPalWorldSettings.ini"
@@ -228,6 +229,17 @@ func main() {
 			fmt.Println("PalWorldSettings.ini not found and DefaultPalWorldSettings.ini does not exist in the current directory.")
 			return // No need to continue if PalWorldSettings.ini doesn't exist and DefaultPalWorldSettings.ini isn't found
 		}
+	} else if fileInfo.Size() == 0 {
+		// PalWorldSettings.ini exists but is empty
+		// Copy the default INI file
+		defaultIniPath := "DefaultPalWorldSettings.ini"
+		newIniPath := fmt.Sprintf("Pal/Saved/Config/%s/PalWorldSettings.ini", osFolder)
+		err := copyFile(defaultIniPath, iniFilePath)
+		if err != nil {
+			fmt.Printf("Error copying file: %v\n", err)
+			return
+		}
+		fmt.Println("DefaultPalWorldSettings.ini copied to:", newIniPath)
 	} else {
 		fmt.Println("PalWorldSettings.ini found at:", iniFilePath)
 	}
