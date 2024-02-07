@@ -7,9 +7,49 @@ import (
 	"path/filepath"
 	"strings"
 	"runtime"
+	"strconv"
+	"regexp"
 )
 
 func main() {
+
+// ValidationRules holds validation rules for environment variables
+	var ValidationRules = map[string]func(string) bool{
+		"Numeric": func(val string) bool {
+			// Numeric: Allows only positive numeric values (e.g., "123", "456")
+			num, err := strconv.Atoi(val)
+			return err == nil && num >= 0
+		},
+		"Floating": func(val string) bool {
+			// Floating: Allows only positive floating-point values (e.g., "3.14", "0.005")
+			_, err := strconv.ParseFloat(val, 64)
+			if err != nil {
+				return false
+			}
+			// Check if the value contains a decimal point
+			decimalPointIndex := strings.Index(val, ".")
+			if decimalPointIndex == -1 {
+				return false // No decimal point found
+			}
+			// Check if there are digits after the decimal point
+			return decimalPointIndex < len(val)-1
+		},
+		"TrueFalse": func(val string) bool {
+			// TrueFalse: Allows values "True" or "False"
+			return val == "True" || val == "False"
+		},
+		"String": func(val string) bool {
+			// String: Allows string values with spaces (e.g., "Hello World", "This is a string")
+			return true // No validation needed for string with spaces
+		},
+		"AlphaDash": func(val string) bool {
+			// AlphaDash: Allows only alphanumeric characters and dashes (e.g., "abc123", "test-123")
+			return regexp.MustCompile(`^[a-zA-Z0-9_-]+$`).MatchString(val)
+		},
+		// Add more validation rules as needed
+	}
+
+
 	// Read environment variables
 	envVars := map[string]string{
 		"Difficulty":                          os.Getenv("DIFFICULTY"),
@@ -76,6 +116,71 @@ func main() {
 		// Add other environment variables and corresponding INI keys here
 	}
 
+	// Specify validation rules for each key
+	envVarsValidationRules := map[string]string{
+		"Difficulty":                     "String",
+		"DayTimeSpeedRate":               "Floating",
+		"NightTimeSpeedRate":             "Floating",
+		"ExpRate":                        "Floating",
+		"PalCaptureRate":                 "Floating",
+		"PalSpawnNumRate":                "Floating",
+		"PalDamageRateAttack":            "Floating",
+		"PalDamageRateDefense":           "Floating",
+		"PlayerDamageRateAttack":         "Floating",
+		"PlayerDamageRateDefense":        "Floating",
+		"PlayerStomachDecreaceRate":      "Floating",
+		"PlayerStaminaDecreaceRate":      "Floating",
+		"PlayerAutoHPRegeneRate":          "Floating",
+		"PlayerAutoHpRegeneRateInSleep":   "Floating",
+		"PalStaminaDecreaseRate":         "Floating",
+		"PalAutoHPRegenRate":             "Floating",
+		"PalAutoHPRegenRateInSleep":      "Floating",
+		"BuildObjectDamageRate":          "Floating",
+		"BuildObjectDeteriorationDamageRate": "Floating",
+		"CollectionDropRate":             "Floating",
+		"CollectionObjectHPRate":         "Floating",
+		"CollectionObjectRespawnSpeedRate": "Floating",
+		"EnemyDropItemRate":              "Floating",
+		"DeathPenalty":                   "String",
+		"EnablePlayerToPlayerDamage":     "TrueFalse",
+		"bEnableFriendlyFire":             "TrueFalse",
+		"bEnableInvaderEnemy":             "TrueFalse",
+		"ActiveUNKO":                     "TrueFalse",
+		"EnableAimAssistPad":             "TrueFalse",
+		"EnableAimAssistKeyboard":        "TrueFalse",
+		"DropItemMaxNum":                 "Numeric",
+		"DropItemMaxNum_UNKO":            "Numeric",
+		"BaseCampMaxNum":                 "Numeric",
+		"BaseCampWorkerMaxNum":           "Numeric",
+		"DropItemAliveMaxHours":          "Numeric",
+		"AutoResetGuildNoOnlinePlayers":  "TrueFalse",
+		"AutoResetGuildTimeNoOnlinePlayers": "Numeric",
+		"GuildPlayerMaxNum":              "Numeric",
+		"PalEggDefaultHatchingTime":      "Numeric",
+		"WorkSpeedRate":                  "Floating",
+		"IsMultiplay":                    "TrueFalse",
+		"IsPvP":                          "TrueFalse",
+		"CanPickupOtherGuildDeathPenaltyDrop": "TrueFalse",
+		"EnableNonLoginPenalty":          "TrueFalse",
+		"EnableFastTravel":               "TrueFalse",
+		"IsStartLocationSelectByMap":     "TrueFalse",
+		"ExistPlayerAfterLogout":         "TrueFalse",
+		"EnableDefenseOtherGuildPlayer":  "TrueFalse",
+		"CoopPlayerMaxNum":               "Numeric",
+		"ServerPlayerMaxNum":             "Numeric",
+		"ServerName":                     "String",
+		"ServerDescription":              "String",
+		"ServerPassword":                 "AlphaDash",
+		"AdminPassword":                  "AlphaDash",
+		"PublicIP":                       "String",
+		"PublicPort":                     "Numeric",
+		"RCONPort":                       "Numeric",
+		"RCONEnabled":                    "TrueFalse",
+		"UseAuth":                        "TrueFalse",
+		"BanListURL":                     "String",
+		// Add other keys as needed
+	}
+
 	// Specify keys for which quotes should be added
 	envVarsQuotes := map[string]bool{
 		"ServerName":     true,
@@ -86,7 +191,6 @@ func main() {
 		"PublicIP": true,
 		// Add other keys as needed
 	}
-
 	// Determine the operating system
 	var osFolder string
 	switch runtime.GOOS {
@@ -138,6 +242,24 @@ func main() {
 	// Update values based on environment variables
 	for key, value := range envVars {
 		if value != "" {
+			
+			// Check if there's a validation rule for the key
+			if ruleName, ok := envVarsValidationRules[key]; ok {
+				// Check if there's a validation function for the rule name
+				if rule, ok := ValidationRules[ruleName]; ok {
+					// Validate the value based on the rule
+					if !rule(value) {
+						fmt.Printf("Validation failed for key: %s, value: %s\n", key, value)
+						continue
+					}
+				} else {
+					fmt.Printf("No validation rule found for key: %s\n", key)
+				}
+			} else {
+				fmt.Printf("No validation rule specified for key: %s\n", key)
+			}
+			
+			// Update the value in the INI file
 			fmt.Printf("Updating key: %s with value: %s\n", key, value)
 			setINIValue(&iniContent, key, value, envVarsQuotes[key])
 		}
