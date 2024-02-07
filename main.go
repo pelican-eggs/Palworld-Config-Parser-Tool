@@ -101,15 +101,31 @@ func main() {
 
 	// Get the absolute path to the INI file
 	iniFilePath, err := filepath.Abs(fmt.Sprintf("Pal/Saved/Config/%s/PalWorldSettings.ini", osFolder))
-		if err != nil {
+	if err != nil {
 		fmt.Printf("Error getting absolute path: %v\n", err)
 		return
 	}
 
-	// Check if the INI file exists
+	// Check if PalWorldSettings.ini exists
 	if _, err := os.Stat(iniFilePath); os.IsNotExist(err) {
-		fmt.Printf("Error: INI file not found. Exiting. %v\n", err)
-		return
+		// PalWorldSettings.ini does not exist
+		// Check if DefaultPalWorldSettings.ini exists in the current directory
+		defaultIniPath := "DefaultPalWorldSettings.ini"
+		if _, err := os.Stat(defaultIniPath); !os.IsNotExist(err) {
+			// DefaultPalWorldSettings.ini exists, so move it to the desired location
+			newIniPath := fmt.Sprintf("Pal/Saved/Config/%s/PalWorldSettings.ini", osFolder)
+			err := copyFile(defaultIniPath, iniFilePath)
+			if err != nil {
+				fmt.Printf("Error copying file: %v\n", err)
+				return
+			}
+			fmt.Println("DefaultPalWorldSettings.ini copied to:", newIniPath)
+		} else {
+			fmt.Println("PalWorldSettings.ini not found and DefaultPalWorldSettings.ini does not exist in the current directory.")
+			return // No need to continue if PalWorldSettings.ini doesn't exist and DefaultPalWorldSettings.ini isn't found
+		}
+	} else {
+		fmt.Println("PalWorldSettings.ini found at:", iniFilePath)
 	}
 
 	// Read the contents of the original INI file
@@ -178,3 +194,12 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 	*content = append((*content)[:start], append([]byte(value), (*content)[end:]...)...)
 }
 
+
+// copyFile copies a file from src to dst
+func copyFile(src, dst string) error {
+	data, err := ioutil.ReadFile(src)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(dst, data, 0644)
+}
