@@ -113,7 +113,7 @@ func main() {
 		"RCONEnabled":                         os.Getenv("RCON_ENABLE"),
 		"bUseAuth":                            os.Getenv("USE_AUTH"),
 		"BanListURL":                          os.Getenv("BAN_LIST_URL"),
-		"Region":							   os.Getenv("SERVER_REGION")
+		"Region":							   os.Getenv("SERVER_REGION"),
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -180,7 +180,7 @@ func main() {
 		"RCONEnabled":                    "TrueFalse",//RCONEnabled=False,
 		"bUseAuth":                        "TrueFalse",//bUseAuth=True,
 		"BanListURL":                     "String",//BanListURL="https://api.palworldgame.com/api/banlist.txt"
-		"Region":							"String"//Region="",
+		"Region":							"String",//Region="",
 		// Add other keys as needed
 	}
 
