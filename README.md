@@ -78,3 +78,4 @@ If you want to support my work:
 | RCONEnabled                             | RCON_ENABLE                               | ✅ |
 | bUseAuth                                | USE_AUTH                                  |   |
 | BanListURL                              | BAN_LIST_URL                              |   |
+| Region                                  | SERVER_REGION                              |   |
