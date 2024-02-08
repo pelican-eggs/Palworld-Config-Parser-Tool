@@ -54,13 +54,13 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: matrix.goos == 'linux'
         with:
-          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.zip
           path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
 
       - uses: actions/upload-artifact@v4
         if: matrix.goos == 'windows'
         with:
-          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe.zip
           path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
 
   # release:
