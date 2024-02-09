@@ -83,8 +83,10 @@ If you want to support my work:
 
 # Notes
 
-- If a variable does not exits the parser will not try to change that value in the configuration file.
+- If a variable does not exists the parser will not try to change that value in the configuration file.
 - If you want to clear / empty a value in the config then you must set the ENV variable to `nil`or `null`, putting just an empty variable will not edit the value in the config.
+- If a `DefaultPalWorldSettings.ini` exists but a `PalWorldSettings.ini` does not, it will try to copy it to the right directory.
+- If a `DefaultPalWorldSettings.ini` exists and a `PalWorldSettings.ini` exits, but it is empty, then it will try to copy the contents over to the settings file.
 - There is some very basic validation on the variables.
 
 |Rule|Value|Example|
