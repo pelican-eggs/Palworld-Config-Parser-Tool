@@ -4,9 +4,9 @@ A simple tool that replaces values in the Palworld dedicated server config file 
 
 This tool was made with Pterodactyl in mind but does work outside of it.
 
-![afbeelding](https://github.com/QuintenQVD0/Palword-server-config-parser/assets/67589015/80105711-4bfb-4e71-ae1f-6fc4c55e6d94)
+![afbeelding](https://github.com/QuintenQVD0/Palword-server-config-parser/assets/67589015/1006e731-b397-4f39-9bca-69cfee4fd2f2)
 
-Yes, this tool can also work on the windows dedicated server.
+Yes, this tool can also work on the windows dedicated server but it has a know bug with not clearning variables that are empty, This does work on linux.
 
 
 If you want to support my work:
