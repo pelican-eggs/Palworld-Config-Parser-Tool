@@ -257,13 +257,13 @@ func main() {
 	// Update values based on environment variables
 	for key, value := range envVars {
 		// Check if the environment variable exists
-		if value == "" && os.Getenv(key) == "" {
+		if value == "" && os.Getenv(key) == "" && os.Getenv(key) != "nil"{
 			//fmt.Printf("Skipping key: %s because environment variable doesn't exist\n", key)
 			continue
 		}
 
 		// Skip validation and updating if value is empty but environment variable exists
-		if value == "" && os.Getenv(key) != "" {
+		if value == "" && (os.Getenv(key) != "" || os.Getenv(key) == "nil") {
 			fmt.Printf("Skipping key: %s because value is empty\n", key)
 			// Set key to empty value in the INI file
 			setINIValue(&iniContent, key, "", envVarsQuotes[key])
