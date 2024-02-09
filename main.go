@@ -256,8 +256,21 @@ func main() {
 
 	// Update values based on environment variables
 	for key, value := range envVars {
+		// Check if the environment variable exists
+		if value == "" && os.Getenv(key) == "" {
+			//fmt.Printf("Skipping key: %s because environment variable doesn't exist\n", key)
+			continue
+		}
+
+		// Skip validation and updating if value is empty but environment variable exists
+		if value == "" && os.Getenv(key) != "" {
+			fmt.Printf("Skipping key: %s because value is empty\n", key)
+			// Set key to empty value in the INI file
+			setINIValue(&iniContent, key, "", envVarsQuotes[key])
+			continue
+		}
+
 		if value != "" {
-			
 			// Check if there's a validation rule for the key
 			if ruleName, ok := envVarsValidationRules[key]; ok {
 				// Check if there's a validation function for the rule name
@@ -273,11 +286,11 @@ func main() {
 			} else {
 				fmt.Printf("No validation rule specified for key: %s\n", key)
 			}
-			
-			// Update the value in the INI file
-			fmt.Printf("Updating key: %s with value: %s\n", key, value)
-			setINIValue(&iniContent, key, value, envVarsQuotes[key])
 		}
+
+		// Update the value in the INI file
+		fmt.Printf("Updating key: %s with value: %s\n", key, value)
+		setINIValue(&iniContent, key, value, envVarsQuotes[key])
 	}
 
 	// Write the updated contents back to the INI file
