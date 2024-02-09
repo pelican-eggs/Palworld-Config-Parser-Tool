@@ -11,8 +11,11 @@ import (
 	"regexp"
 )
 
-func main() {
+// Version of the program
+const Version = "v1.0.7"
 
+func main() {
+	fmt.Println("Program Version:", Version)
 // ValidationRules holds validation rules for environment variables
 	var ValidationRules = map[string]func(string) bool{
 		"Numeric": func(val string) bool {
@@ -257,14 +260,14 @@ func main() {
 	// Update values based on environment variables
 	for key, value := range envVars {
 		// Check if the environment variable exists
-		if value == "" && os.Getenv(key) == "" && os.Getenv(key) != "nil"{
+		if value == "" && os.Getenv(key) == ""{
 			//fmt.Printf("Skipping key: %s because environment variable doesn't exist\n", key)
 			continue
 		}
 
 		// Skip validation and updating if value is empty but environment variable exists
-		if value == "" && (os.Getenv(key) != "" || os.Getenv(key) == "nil") {
-			fmt.Printf("Skipping key: %s because value is empty\n", key)
+		if value == "nil" || value == "null" {
+			fmt.Printf("Cleared key %s due to %s value.\n", key, value)
 			// Set key to empty value in the INI file
 			setINIValue(&iniContent, key, "", envVarsQuotes[key])
 			continue

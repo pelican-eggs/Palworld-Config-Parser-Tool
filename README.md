@@ -78,4 +78,19 @@ If you want to support my work:
 | RCONEnabled                             | RCON_ENABLE                               | ✅ |
 | bUseAuth                                | USE_AUTH                                  |   |
 | BanListURL                              | BAN_LIST_URL                              |   |
-| Region                                  | SERVER_REGION                              |   |
+| Region                                  | SERVER_REGION                             |   |
+
+
+# Notes
+
+- If a variable does not exits the parser will not try to change that value in the configuration file.
+- If you want to clear / empty a value in the config then you must set the ENV variable to `nil`or `null`, putting just an empty variable will not edit the value in the config.
+- There is some very basic validation on the variables.
+
+|Rule|Value|Example|
+|-----|-----|-----|
+|Numeric|Allows only positive numeric values|"123" or "25565"|
+|Floating|Allows only positive floating-point values|"0.005" or "3.14"|
+|TrueFalse| Allows values "True" or "False"|True" or "False"|
+|String|Everything|"this is a test" or "test"|
+|AlphaDash|Allows only alphanumeric characters and dashes|"abc123" or"test-123"|
