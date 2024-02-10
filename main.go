@@ -12,7 +12,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.8"
+const Version = "v1.0.9"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -235,7 +235,7 @@ func main() {
 			fmt.Println("PalWorldSettings.ini not found and DefaultPalWorldSettings.ini does not exist in the current directory.")
 			return // No need to continue if PalWorldSettings.ini doesn't exist and DefaultPalWorldSettings.ini isn't found
 		}
-	} else if fileInfo.Size() == 0 {
+	} else if fileInfo.Size() == 0 || fileInfo.Size() < 1200 {
 		// PalWorldSettings.ini exists but is empty
 		// Copy the default INI file
 		defaultIniPath := "DefaultPalWorldSettings.ini"
