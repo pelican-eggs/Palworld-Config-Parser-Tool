@@ -51,8 +51,18 @@ func main() {
 		},
 		// Add more validation rules as needed
 	}
-
-
+	
+	func getIPAddressKey() string {
+		// Check if PUBLIC_IP environment variable exists and is not empty
+		val, ok := os.LookupEnv("PUBLIC_IP")
+		if ok && val != "" {
+			return "PUBLIC_IP"
+		}
+	
+		// Fallback to SERVER_IP if PUBLIC_IP is empty or does not exist
+		return "SERVER_IP"
+	}
+	
 	// Read environment variables
 	envVars := map[string]string{
 		"Difficulty":                         "DIFFICULTY",
@@ -110,7 +120,6 @@ func main() {
 		"ServerDescription":                  "SERVER_DESCRIPTION",
 		"ServerPassword":                     "SERVER_PASSWORD",
 		"AdminPassword":                      "ADMIN_PASSWORD",
-		"PublicIP":                           "PUBLIC_IP",
 		"PublicPort":                         "SERVER_PORT",
 		"RCONPort":                           "RCON_PORT",
 		"RCONEnabled":                        "RCON_ENABLE",
@@ -119,6 +128,9 @@ func main() {
 		"Region":			      "SERVER_REGION",
 		// Add other environment variables and corresponding INI keys here
 	}
+
+	// Assign value to "PublicIP" key using the function getIPAddressKey()
+	envVars["PublicIP"] = getIPAddressKey()
 
 	// Specify validation rules for each key
 	envVarsValidationRules := map[string]string{
