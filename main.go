@@ -52,16 +52,7 @@ func main() {
 		// Add more validation rules as needed
 	}
 
-	func getIPAddressKey() string {
-		// Check if PUBLIC_IP environment variable exists and is not empty
-		val, ok := os.LookupEnv("PUBLIC_IP")
-		if ok && val != "" {
-			return "PUBLIC_IP"
-		}
-	
-		// Fallback to SERVER_IP if PUBLIC_IP is empty or does not exist
-		return "SERVER_IP"
-	}
+
 	
 	// Read environment variables
 	envVars := map[string]string{
@@ -376,4 +367,15 @@ func copyFile(src, dst string) error {
 		return err
 	}
 	return ioutil.WriteFile(dst, data, 0644)
+}
+
+func getIPAddressKey() string {
+	// Check if PUBLIC_IP environment variable exists and is not empty
+	val, ok := os.LookupEnv("PUBLIC_IP")
+	if ok && val != "" {
+		return "PUBLIC_IP"
+	}
+
+	// Fallback to SERVER_IP if PUBLIC_IP is empty or does not exist
+	return "SERVER_IP"
 }
