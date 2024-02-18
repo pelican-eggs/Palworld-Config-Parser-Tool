@@ -51,7 +51,7 @@ func main() {
 		},
 		// Add more validation rules as needed
 	}
-	
+
 	func getIPAddressKey() string {
 		// Check if PUBLIC_IP environment variable exists and is not empty
 		val, ok := os.LookupEnv("PUBLIC_IP")
@@ -215,7 +215,12 @@ func main() {
 	case "windows":
 		osFolder = "WindowsServer"
 	case "linux":
-		osFolder = "LinuxServer"
+		// Check if the WINEPREFIX environment variable exists
+		if _, winePrefixExists := os.LookupEnv("WINEPREFIX"); winePrefixExists {
+			osFolder = "WindowsServer"
+		} else {
+			osFolder = "LinuxServer"
+		}
 	default:
 		fmt.Println("Unsupported operating system")
 		return
