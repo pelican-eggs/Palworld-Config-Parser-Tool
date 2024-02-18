@@ -86,6 +86,7 @@ If you want to support my work:
 - If a variable does not exists the parser will not try to change that value in the configuration file.
 - If a `DefaultPalWorldSettings.ini` exists but a `PalWorldSettings.ini` does not, it will try to copy it to the right directory.
 - If a `DefaultPalWorldSettings.ini` exists and a `PalWorldSettings.ini` exits, but it is empty, then it will try to copy the contents over to the settings file.
+- If the variable `WINEPREFIX` exits then from v1.0.10 or up you can run the linux binary and it will try to use the Windows path.
 - There is some very basic validation on the variables.
 
 |Rule|Value|Example|
