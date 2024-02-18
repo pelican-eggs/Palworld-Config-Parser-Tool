@@ -72,7 +72,7 @@ If you want to support my work:
 | ServerDescription                       | SERVER_DESCRIPTION                        | ✅ |
 | ServerPassword                          | SERVER_PASSWORD                           | ✅ |
 | AdminPassword                           | ADMIN_PASSWORD                            | ✅ |
-| PublicIP                                | PUBLIC_IP                                 | ✅ |
+| PublicIP                                | PUBLIC_IP / SERVER_IP (v1.0.10 or later)  | ✅ |
 | PublicPort                              | SERVER_PORT                               | ✅ |
 | RCONPort                                | RCON_PORT                                 | ✅ |
 | RCONEnabled                             | RCON_ENABLE                               | ✅ |
