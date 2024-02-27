@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.11"
+const Version = "v1.0.12"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -116,7 +116,7 @@ func main() {
 		"bUseAuth":                             "USE_AUTH",
 		"BanListURL":                           "BAN_LIST_URL",
 		"Region":                               "SERVER_REGION",
-		"bShowPlayerList":			"SHOW_PLAYER_LIST",
+		"bShowPlayerList":                      "SHOW_PLAYER_LIST",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -187,7 +187,7 @@ func main() {
 		"bUseAuth":                             "TrueFalse", //bUseAuth=True,
 		"BanListURL":                           "String",    //BanListURL="https://api.palworldgame.com/api/banlist.txt"
 		"Region":                               "String",    //Region="",
-		"bShowPlayerList":			"TrueFalse", //bShowPlayerList=False
+		"bShowPlayerList":                      "TrueFalse", //bShowPlayerList=False
 		// Add other keys as needed
 	}
 
@@ -337,11 +337,32 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 		return
 	}
 
-	// Find the end position of the value (comma or end of line)
-	endPos := strings.Index(contentStr[pos:], ",")
-	if endPos == -1 {
-		// If there is no comma, check if it's at the end of the content
-		endPos = len(contentStr) - pos
+	// Line 340-364 is chatgpt generated but seems to work just fine
+	var endPos int
+	// normal case, key=value,
+	endPos_1 := strings.Index(contentStr[pos:], ",")
+	// Edge case as the last key has no ending ,
+	endPos_2 := strings.Index(contentStr[pos:], ")")
+
+	// Check if both endPos_1 and endPos_2 are -1, indicating neither comma nor closing parenthesis was found
+	if endPos_1 == -1 && endPos_2 == -1 {
+		// Set endPos to the end of the string
+		endPos = len(contentStr)
+	} else {
+		// If either endPos_1 or endPos_2 is -1, replace it with a large value
+		if endPos_1 == -1 {
+			endPos_1 = len(contentStr) + 1
+		}
+		if endPos_2 == -1 {
+			endPos_2 = len(contentStr) + 1
+		}
+
+		// Choose the minimum of endPos_1 and endPos_2
+		if endPos_1 <= endPos_2 {
+			endPos = endPos_1
+		} else {
+			endPos = endPos_2
+		}
 	}
 
 	// If addQuotes is true and the key requires quotes, add quotes around the value
