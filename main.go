@@ -360,6 +360,11 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 
 	// Update the content slice in place
 	*content = append((*content)[:start], append([]byte(value), (*content)[end:]...)...)
+
+	// Add back the closing bracket if it was removed
+    	if (*content)[len(*content)-1] != ')' {
+        	*content = append(*content, ')')
+    }
 }
 
 // copyFile copies a file from src to dst
