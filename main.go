@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.10"
+const Version = "v1.0.11"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -116,6 +116,7 @@ func main() {
 		"bUseAuth":                             "USE_AUTH",
 		"BanListURL":                           "BAN_LIST_URL",
 		"Region":                               "SERVER_REGION",
+		"bShowPlayerList":			"SHOW_PLAYER_LIST",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -186,6 +187,7 @@ func main() {
 		"bUseAuth":                             "TrueFalse", //bUseAuth=True,
 		"BanListURL":                           "String",    //BanListURL="https://api.palworldgame.com/api/banlist.txt"
 		"Region":                               "String",    //Region="",
+		"bShowPlayerList":			"TrueFalse", //bShowPlayerList=False
 		// Add other keys as needed
 	}
 

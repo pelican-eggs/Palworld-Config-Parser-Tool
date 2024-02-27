@@ -79,6 +79,7 @@ If you want to support my work:
 | bUseAuth                                | USE_AUTH                                  |   |
 | BanListURL                              | BAN_LIST_URL                              |   |
 | Region                                  | SERVER_REGION                             |   |
+| bShowPlayerList                         | SHOW_PLAYER_LIST                          |   |
 
 
 # Notes
