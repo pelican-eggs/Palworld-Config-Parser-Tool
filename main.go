@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.12"
+const Version = "v1.0.13"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -117,6 +117,10 @@ func main() {
 		"BanListURL":                           "BAN_LIST_URL",
 		"Region":                               "SERVER_REGION",
 		"bShowPlayerList":                      "SHOW_PLAYER_LIST",
+		"RESTAPIEnabled":                      	"REST_API_ENABLED",
+		"RESTAPIPort":                      	"REST_API_PORT",
+		"AllowConnectPlatform":                 "ALLOW_CONNECT_PLATFORM",
+		"bIsUseBackupSaveData":                 "USE_BACKUP_SAVE_DATA",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -188,6 +192,10 @@ func main() {
 		"BanListURL":                           "String",    //BanListURL="https://api.palworldgame.com/api/banlist.txt"
 		"Region":                               "String",    //Region="",
 		"bShowPlayerList":                      "TrueFalse", //bShowPlayerList=False
+		"RESTAPIEnabled":                     	"TrueFalse", //RESTAPIEnabled=False
+		"RESTAPIPort":                      	"Numeric",   //RESTAPIPort=8212
+		"AllowConnectPlatform":                 "String",    //AllowConnectPlatform=Steam
+		"bIsUseBackupSaveData":                 "TrueFalse", //bIsUseBackupSaveData=True
 		// Add other keys as needed
 	}
 

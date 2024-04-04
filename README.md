@@ -80,6 +80,10 @@ If you want to support my work:
 | BanListURL                              | BAN_LIST_URL                              |   |
 | Region                                  | SERVER_REGION                             |   |
 | bShowPlayerList                         | SHOW_PLAYER_LIST                          |   |
+| RESTAPIEnabled                           | REST_API_ENABLED                         |   |
+| RESTAPIPort                              | REST_API_PORT                            |   |
+| AllowConnectPlatform                     | ALLOW_CONNECT_PLATFORM                   |   |
+| bIsUseBackupSaveData                     | USE_BACKUP_SAVE_DATA                     |   |
 
 
 # Notes
