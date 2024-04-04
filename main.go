@@ -192,8 +192,6 @@ func main() {
 		"BanListURL":                           "String",    //BanListURL="https://api.palworldgame.com/api/banlist.txt"
 		"Region":                               "String",    //Region="",
 		"bShowPlayerList":                      "TrueFalse", //bShowPlayerList=False
-		"Region":                               "String",    //Region="",
-		"bShowPlayerList":                      "TrueFalse", //bShowPlayerList=False
 		"RESTAPIEnabled":                     	"TrueFalse", //RESTAPIEnabled=False
 		"RESTAPIPort":                      	"Numeric",   //RESTAPIPort=8212
 		"AllowConnectPlatform":                 "String",    //AllowConnectPlatform=Steam
