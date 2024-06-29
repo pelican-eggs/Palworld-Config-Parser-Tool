@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -117,8 +117,8 @@ func main() {
 		"BanListURL":                           "BAN_LIST_URL",
 		"Region":                               "SERVER_REGION",
 		"bShowPlayerList":                      "SHOW_PLAYER_LIST",
-		"RESTAPIEnabled":                      	"REST_API_ENABLED",
-		"RESTAPIPort":                      	"REST_API_PORT",
+		"RESTAPIEnabled":                       "REST_API_ENABLED",
+		"RESTAPIPort":                          "REST_API_PORT",
 		"AllowConnectPlatform":                 "ALLOW_CONNECT_PLATFORM",
 		"bIsUseBackupSaveData":                 "USE_BACKUP_SAVE_DATA",
 		// Add other environment variables and corresponding INI keys here
@@ -192,8 +192,8 @@ func main() {
 		"BanListURL":                           "String",    //BanListURL="https://api.palworldgame.com/api/banlist.txt"
 		"Region":                               "String",    //Region="",
 		"bShowPlayerList":                      "TrueFalse", //bShowPlayerList=False
-		"RESTAPIEnabled":                     	"TrueFalse", //RESTAPIEnabled=False
-		"RESTAPIPort":                      	"Numeric",   //RESTAPIPort=8212
+		"RESTAPIEnabled":                       "TrueFalse", //RESTAPIEnabled=False
+		"RESTAPIPort":                          "Numeric",   //RESTAPIPort=8212
 		"AllowConnectPlatform":                 "String",    //AllowConnectPlatform=Steam
 		"bIsUseBackupSaveData":                 "TrueFalse", //bIsUseBackupSaveData=True
 		// Add other keys as needed
@@ -270,7 +270,15 @@ func main() {
 	}
 
 	// Read the contents of the original INI file
-	iniContent, err := ioutil.ReadFile(iniFilePath)
+	iniOpenFIle, err := os.Open(iniFilePath)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+
+	defer iniOpenFIle.Close()
+
+	iniContent, err := io.ReadAll(iniOpenFIle)
 	if err != nil {
 		fmt.Printf("Error reading INI file: %v\n", err)
 		return
@@ -320,7 +328,7 @@ func main() {
 	}
 
 	// Write the updated contents back to the INI file
-	err = ioutil.WriteFile(iniFilePath, iniContent, 0644)
+	err = os.WriteFile(iniFilePath, iniContent, 0644)
 	if err != nil {
 		fmt.Printf("Error writing updated INI file: %v\n", err)
 		return
@@ -393,11 +401,18 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 
 // copyFile copies a file from src to dst
 func copyFile(src, dst string) error {
-	data, err := ioutil.ReadFile(src)
+	srcOpenFile, err := os.Open(src)
+
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(dst, data, 0644)
+	defer srcOpenFile.Close()
+
+	data, err := io.ReadAll(srcOpenFile)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(dst, data, 0644)
 }
 
 func getIPAddressKey() string {
