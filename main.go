@@ -121,6 +121,7 @@ func main() {
 		"RESTAPIPort":                          "REST_API_PORT",
 		"AllowConnectPlatform":                 "ALLOW_CONNECT_PLATFORM",
 		"bIsUseBackupSaveData":                 "USE_BACKUP_SAVE_DATA",
+		"LogFormatType":                        "LOG_FORMAT_TYPE",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -196,6 +197,7 @@ func main() {
 		"RESTAPIPort":                          "Numeric",   //RESTAPIPort=8212
 		"AllowConnectPlatform":                 "String",    //AllowConnectPlatform=Steam
 		"bIsUseBackupSaveData":                 "TrueFalse", //bIsUseBackupSaveData=True
+		"LogFormatType":                        "String",    //LogFormatType=Text
 		// Add other keys as needed
 	}
 
