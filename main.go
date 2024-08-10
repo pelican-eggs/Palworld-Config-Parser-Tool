@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.14"
+const Version = "v1.0.15"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -151,7 +151,7 @@ func main() {
 		"BuildObjectDamageRate":                "Floating",  //BuildObjectDamageRate=1.000000,
 		"BuildObjectDeteriorationDamageRate":   "Floating",  //BuildObjectDeteriorationDamageRate=1.000000,
 		"CollectionDropRate":                   "Floating",  //CollectionDropRate=1.000000,
-		"CollectionObjectHPRate":               "Floating",  //CollectionObjectHpRate=1.000000,
+		"CollectionObjectHpRate":               "Floating",  //CollectionObjectHpRate=1.000000,
 		"CollectionObjectRespawnSpeedRate":     "Floating",  //CollectionObjectRespawnSpeedRate=1.000000,
 		"EnemyDropItemRate":                    "Floating",  //EnemyDropItemRate=1.000000,
 		"DeathPenalty":                         "String",    //DeathPenalty=All,
