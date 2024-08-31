@@ -13,7 +13,7 @@ If you want to support my work:
 
 ## Key with Variables
 
-| Config Keyword                          | ENV Variable                              | Pterodactyl Stock  |
+| Config Keyword                          | ENV Variable                              | Pterodactyl Stock |
 |-----------------------------------------|-------------------------------------------|-------------------|
 | Difficulty                              | DIFFICULTY                                |                   |
 | DayTimeSpeedRate                        | DAY_TIME_SPEED_RATE                       |                   |
@@ -42,7 +42,7 @@ If you want to support my work:
 | DeathPenalty                            | DEATH_PENALTY                             |                   |
 | bEnablePlayerToPlayerDamage             | ENABLE_PLAYER_TO_PLAYER_DAMAGE            |                   |
 | bEnableFriendlyFire                     | ENABLE_FRIENDLY_FIRE                      |                   |
-| bEnableInvaderEnemy                     | ENABLE_ENEMY                              | ✅                 |
+| bEnableInvaderEnemy                     | ENABLE_ENEMY                              | ✅                |
 | bActiveUNKO                             | ACTIVE_UNKO                               |                   |
 | bEnableAimAssistPad                     | ENABLE_AIM_ASSIST_PAD                     |                   |
 | bEnableAimAssistKeyboard                | ENABLE_AIM_ASSIST_KEYBOARD                |                   |
@@ -54,6 +54,7 @@ If you want to support my work:
 | bAutoResetGuildNoOnlinePlayers          | AUTO_RESET_GUILD_NO_ONLINE_PLAYERS        |                   |
 | AutoResetGuildTimeNoOnlinePlayers       | AUTO_RESET_GUILD_TIME_NO_ONLINE_PLAYERS   |                   |
 | GuildPlayerMaxNum                       | GUILD_PLAYER_MAX_NUM                      |                   |
+| BaseCampMaxNumInGuild                   | BASE_CAMP_MAX_NUM_IN_GUILD                |                   |
 | PalEggDefaultHatchingTime               | PAL_EGG_DEFAULT_HATCHING_TIME             |                   |
 | WorkSpeedRate                           | WORK_SPEED_RATE                           |                   |
 | bIsMultiplay                            | IS_MULTIPLAY                              |                   |
@@ -65,24 +66,25 @@ If you want to support my work:
 | bExistPlayerAfterLogout                 | EXIST_PLAYER_AFTER_LOGOUT                 |                   |
 | bEnableDefenseOtherGuildPlayer          | ENABLE_DEFENSE_OTHER_GUILD_PLAYER         |                   |
 | CoopPlayerMaxNum                        | COOP_PLAYER_MAX_NUM                       |                   |
-| ServerPlayerMaxNum                      | MAX_PLAYERS                               | ✅                 |
-| ServerName                              | SERVER_NAME                               | ✅                 |
-| ServerDescription                       | SERVER_DESCRIPTION                        | ✅                 |
-| ServerPassword                          | SERVER_PASSWORD                           | ✅                 |
-| AdminPassword                           | ADMIN_PASSWORD                            | ✅                 |
-| PublicIP                                | PUBLIC_IP / SERVER_IP (v1.0.10 or later)  | ✅                 |
-| PublicPort                              | SERVER_PORT                               | ✅                 |
-| RCONPort                                | RCON_PORT                                 | ✅                 |
-| RCONEnabled                             | RCON_ENABLE                               | ✅                 |
+| ServerPlayerMaxNum                      | MAX_PLAYERS                               | ✅                |
+| ServerName                              | SERVER_NAME                               | ✅                |
+| ServerDescription                       | SERVER_DESCRIPTION                        | ✅                |
+| ServerPassword                          | SERVER_PASSWORD                           | ✅                |
+| AdminPassword                           | ADMIN_PASSWORD                            | ✅                |
+| PublicIP                                | PUBLIC_IP / SERVER_IP (v1.0.10 or later)  | ✅                |
+| PublicPort                              | SERVER_PORT                               | ✅                |
+| RCONPort                                | RCON_PORT                                 | ✅                |
+| RCONEnabled                             | RCON_ENABLE                               | ✅                |
 | bUseAuth                                | USE_AUTH                                  |                   |
 | BanListURL                              | BAN_LIST_URL                              |                   |
 | Region                                  | SERVER_REGION                             |                   |
 | bShowPlayerList                         | SHOW_PLAYER_LIST                          |                   |
-| RESTAPIEnabled                           | REST_API_ENABLED                         |                   |
-| RESTAPIPort                              | REST_API_PORT                            |                   |
-| AllowConnectPlatform                     | ALLOW_CONNECT_PLATFORM                   |                   |
-| bIsUseBackupSaveData                     | USE_BACKUP_SAVE_DATA                     |                   |
-| LogFormatType                            | LOG_FORMAT_TYPE                          |                   |
+| RESTAPIEnabled                          | REST_API_ENABLED                          |                   |
+| RESTAPIPort                             | REST_API_PORT                             |                   |
+| AllowConnectPlatform                    | ALLOW_CONNECT_PLATFORM                    |                   |
+| bIsUseBackupSaveData                    | USE_BACKUP_SAVE_DATA                      |                   |
+| LogFormatType                           | LOG_FORMAT_TYPE                           |                   |
+| SupplyDropSpan                          | SUPPLY_DROP_SPAN                          |                   |
 
 
 # Notes
