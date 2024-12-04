@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.16"
+const Version = "v1.0.17"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -124,6 +124,9 @@ func main() {
 		"bIsUseBackupSaveData":                 "USE_BACKUP_SAVE_DATA",
 		"LogFormatType":                        "LOG_FORMAT_TYPE",
 		"SupplyDropSpan":                       "SUPPLY_DROP_SPAN",
+		"ChatPostLimitPerMinute":               "CHAT_POST_LIMIT",
+		"bInvisibleOtherGuildBaseCampAreaFX":   "INVISIBLE_OTHER_GUILD_BASE",	
+		"AutoSaveSpan":                         "AUTO_SAVE_SPAN",				
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -171,7 +174,7 @@ func main() {
 		"AutoResetGuildTimeNoOnlinePlayers":    "Floating",  //AutoResetGuildTimeNoOnlinePlayers=72.000000,
 		"bAutoResetGuildNoOnlinePlayers":       "TrueFalse", //bAutoResetGuildNoOnlinePlayers=False,
 		"GuildPlayerMaxNum":                    "Numeric",   //GuildPlayerMaxNum=20,
-		"BaseCampMaxNumInGuild":                "Numeric",   //BaseCampMaxNumInGuild=4,
+		"BaseCampMaxNumInGuild":                "Numeric",   //BaseCampMaxNumInGuild=3,
 		"PalEggDefaultHatchingTime":            "Floating",  //PalEggDefaultHatchingTime=72.000000,
 		"WorkSpeedRate":                        "Floating",  //WorkSpeedRate=1.000000,
 		"bIsMultiplay":                         "TrueFalse", //bIsMultiplay=False,
@@ -202,6 +205,9 @@ func main() {
 		"bIsUseBackupSaveData":                 "TrueFalse", //bIsUseBackupSaveData=True
 		"LogFormatType":                        "String",    //LogFormatType=Text
 		"SupplyDropSpan":                       "Numeric",   //SupplyDropSpan=180
+		"ChatPostLimitPerMinute":               "Numeric",   //ChatPostLimitPerMinute=10	
+		"bInvisibleOtherGuildBaseCampAreaFX":   "TrueFalse", //bInvisibleOtherGuildBaseCampAreaFX=False,		
+		"AutoSaveSpan":                         "Numeric",   //AutoSaveSpan=30,				
 		// Add other keys as needed
 	}
 
