@@ -85,6 +85,9 @@ If you want to support my work:
 | bIsUseBackupSaveData                    | USE_BACKUP_SAVE_DATA                      |                   |
 | LogFormatType                           | LOG_FORMAT_TYPE                           |                   |
 | SupplyDropSpan                          | SUPPLY_DROP_SPAN                          |                   |
+| ChatPostLimitPerMinute                  | CHAT_POST_LIMIT                           |                   |
+| bInvisibleOtherGuildBaseCampAreaFX      | INVISIBLE_OTHER_GUILD_BASE                |                   |
+| AutoSaveSpan                            | AUTO_SAVE_SPAN                            |                   |
 
 
 # Notes
