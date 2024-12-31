@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.17"
+const Version = "v1.0.18"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -126,7 +126,17 @@ func main() {
 		"SupplyDropSpan":                       "SUPPLY_DROP_SPAN",
 		"ChatPostLimitPerMinute":               "CHAT_POST_LIMIT",
 		"bInvisibleOtherGuildBaseCampAreaFX":   "INVISIBLE_OTHER_GUILD_BASE",	
-		"AutoSaveSpan":                         "AUTO_SAVE_SPAN",				
+		"AutoSaveSpan":                         "AUTO_SAVE_SPAN",
+		"RandomizerType":                       "RANDOMIZER_TYPE",				
+		"RandomizerSeed":                       "RANDOMIZER_SEED",
+		"BuildObjectHpRate":                    "BUILD_OBJECT_HP_RATE",
+		"bHardcore":                            "HARDCORE",
+		"bPalLost":                             "PAL_LOST",
+		"bBuildAreaLimit":                      "BUILD_AREA_LIMIT",
+		"ItemWeightRate":                       "ITEM_WEIGHT_RATE",
+		"EnablePredatorBossPal":                "ENABLE_PREDATOR_BOSS_PAL",
+		"MaxBuildingLimitNum":                  "MAX_BUILDING_LIMIT_NUM",
+		"ServerReplicatePawnCullDistance":      "SERVER_REPLICATE_PAWN_CULL_DISTANCE",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -207,7 +217,18 @@ func main() {
 		"SupplyDropSpan":                       "Numeric",   //SupplyDropSpan=180
 		"ChatPostLimitPerMinute":               "Numeric",   //ChatPostLimitPerMinute=10	
 		"bInvisibleOtherGuildBaseCampAreaFX":   "TrueFalse", //bInvisibleOtherGuildBaseCampAreaFX=False,		
-		"AutoSaveSpan":                         "Numeric",   //AutoSaveSpan=30,				
+		"AutoSaveSpan":                         "Numeric",   //AutoSaveSpan=30,		
+		"RandomizerType":                       "String",    //RandomizerType=Node,		
+		"RandomizerSeed":                       "String",    //RandomizerSeed="",
+		"BuildObjectHpRate":                    "Floating",  //BuildObjectHpRate=1.000000,
+		"bHardcore":                         	"TrueFalse", //bHardcore=False,
+		"bPalLost":                         	"TrueFalse", //bPalLost=False,
+		"bBuildAreaLimit":                      "TrueFalse", //bBuildAreaLimit=False,
+		"ItemWeightRate":                       "Floating",  //ItemWeightRate=1.000000,
+		"EnablePredatorBossPal":                "TrueFalse", //EnablePredatorBossPal=True,
+		"MaxBuildingLimitNum":                  "Numeric",   //MaxBuildingLimitNum=0,
+		"ServerReplicatePawnCullDistance":      "Floating",  //ServerReplicatePawnCullDistance=15000.000000,
+
 		// Add other keys as needed
 	}
 
