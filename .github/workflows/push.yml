@@ -1,13 +1,16 @@
-name: Push
+name: Golang build and release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
   pull_request:
-    branches:
-      - main
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release Tag'
+        required: true
+        default: 'v0.0.0'
 
 jobs:
   build:
@@ -20,71 +23,94 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04]
-        go: ["1.21.4"]
+        go: ["1.21.6"]
         goos: [linux, windows]
         goarch: [amd64, arm64]
 
     steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Setup Go environment
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
 
-      - name: Code checkout
-        uses: actions/checkout@v4
-
-      - name: go mod download
+      # Download dependencies
+      - name: Download Go modules
         env:
           CGO_ENABLED: 0
         run: |
           go mod download
 
-      - name: Build
+      # Build the binaries
+      - name: Build binaries
         env:
-          GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 0
+          GOOS: ${{ matrix.goos }}
         run: |
           go build -o dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
-          if [ "${{ matrix.goos }}" = "windows" ]; then
-            mv dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }} dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
-          fi
           chmod 755 dist/*
 
-      - uses: actions/upload-artifact@v4
-        if: matrix.goos == 'linux'
+      # Verify build output
+      - name: Verify build output
+        run: |
+          if [ ! -f "dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}" ]; then
+            echo "Build output is missing!"
+            exit 1
+          fi
+          echo "Build completed successfully."
+
+      # Append .EXE to Windows binary
+      - name: Append .EXE to windows binary
+        run: |
+          if [ "${{ matrix.goos }}" == "windows" ]; then
+            cd dist/
+            mv PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }} PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+            cd ..
+          fi
+
+      # Upload dist folder as an artifact
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.zip
-          path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          name: dist
+          path: dist/
 
-      - uses: actions/upload-artifact@v4
-        if: matrix.goos == 'windows'
+  generate-checksum:
+    name: Generate checksum file
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Download the dist artifact from the build job
+      - name: Download dist artifact
+        uses: actions/download-artifact@v3
         with:
-          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe.zip
-          path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          name: dist
+          path: dist
 
-  # release:
-  #   name: Create Release
-  #   runs-on: ubuntu-20.04
+      # Generate checksum.txt
+      - name: Generate checksum.txt
+        run: |
+          cd dist
+          sha256sum * > checksum.txt
+          cd ..
 
-  #   if: startsWith(github.event.head_commit.message, 'Release:')
-
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Extract tag from commit message
-  #       id: extract_tag
-  #       run: |
-  #         echo "::set-output name=tag::$(echo ${{ github.event.head_commit.message }} | grep -oP 'Release: \K(.*)')"
-
-  #     - name: Create Release
-  #       uses: softprops/action-gh-release@v1
-  #       with:
-  #         files: |
-  #           'dist/PalworldServerConfigParser-linux-amd64'
-  #           'dist/PalworldServerConfigParser-linux-arm64'
-  #           'dist/PalworldServerConfigParser-windows-amd64.exe'
-  #           'dist/PalworldServerConfigParser-windows-arm64.exe'
-  #         tag_name: v${{ steps.extract_tag.outputs.tag }}
-  #         title: ${{ steps.extract_tag.outputs.tag }}
-
+      # Upload all artifacts to GitHub release
+      - name: Upload release artifacts
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/*
+          tag: ${{ github.ref_name || inputs.tag_name }}
+          overwrite: false
+          file_glob: true
