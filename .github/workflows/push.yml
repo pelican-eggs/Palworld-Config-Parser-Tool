@@ -81,6 +81,7 @@ jobs:
           path: dist/
 
   generate-checksum:
+    permissions: write-all  
     name: Generate checksum file
     runs-on: ubuntu-22.04
     needs: build
