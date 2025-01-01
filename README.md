@@ -88,6 +88,16 @@ If you want to support my work:
 | ChatPostLimitPerMinute                  | CHAT_POST_LIMIT                           |                   |
 | bInvisibleOtherGuildBaseCampAreaFX      | INVISIBLE_OTHER_GUILD_BASE                |                   |
 | AutoSaveSpan                            | AUTO_SAVE_SPAN                            |                   |
+| RandomizerType                          | RANDOMIZER_TYPE                           |                   |
+| RandomizerSeed                          | RANDOMIZER_SEED                           |                   |
+| BuildObjectHpRate                       | BUILD_OBJECT_HP_RATE                      |                   |
+| bHardcore                               | HARDCORE                                  |                   |
+| bPalLost                                | PAL_LOST                                  |                   |
+| bBuildAreaLimit                         | BUILD_AREA_LIMIT                          |                   |
+| ItemWeightRate                          | ITEM_WEIGHT_RATE                          |                   |
+| EnablePredatorBossPal                   | ENABLE_PREDATOR_BOSS_PAL                  |                   |
+| MaxBuildingLimitNum                     | MAX_BUILDING_LIMIT_NUM                    |                   |
+| ServerReplicatePawnCullDistance         | SERVER_REPLICATE_PAWN_CULL_DISTANCE       |                   |
 
 
 # Notes
