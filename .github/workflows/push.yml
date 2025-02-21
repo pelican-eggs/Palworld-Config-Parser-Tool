@@ -22,8 +22,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04]
-        go: ["1.21.6"]
+        os: [ubuntu-22.04]
+        go: ["1.23.6"]
         goos: [linux, windows]
         goarch: [amd64, arm64]
 
@@ -74,11 +74,21 @@ jobs:
           fi
 
       # Upload dist folder as an artifact
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Upload linux build artifacts
+        if: matrix.goos == 'linux'
+        uses: actions/upload-artifact@v4
         with:
-          name: dist
-          path: dist/
+          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
+          retention-days: 5
+
+      - name: Upload linux build artifacts
+        if: matrix.goos == 'windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          retention-days: 5          
 
   generate-checksum:
     permissions: write-all  
@@ -93,11 +103,29 @@ jobs:
 
       # Download the dist artifact from the build job
       - name: Download dist artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: dist
-          path: dist
-
+          name: "PalworldServerConfigParser-linux-amd64"
+          path: "dist"
+      
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: "PalworldServerConfigParser-linux-arm64"
+          path: "dist"
+      
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: "PalworldServerConfigParser-windows-amd64.exe"
+          path: "dist"
+  
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: "PalworldServerConfigParser-windows-arm64.exe"
+          path: "dist"       
+      
       # Generate checksum.txt
       - name: Generate checksum.txt
         run: |
