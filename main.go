@@ -120,7 +120,6 @@ func main() {
 		"bShowPlayerList":                      "SHOW_PLAYER_LIST",
 		"RESTAPIEnabled":                       "REST_API_ENABLED",
 		"RESTAPIPort":                          "REST_API_PORT",
-		"AllowConnectPlatform":                 "ALLOW_CONNECT_PLATFORM",
 		"bIsUseBackupSaveData":                 "USE_BACKUP_SAVE_DATA",
 		"LogFormatType":                        "LOG_FORMAT_TYPE",
 		"SupplyDropSpan":                       "SUPPLY_DROP_SPAN",
@@ -138,6 +137,9 @@ func main() {
 		"MaxBuildingLimitNum":                  "MAX_BUILDING_LIMIT_NUM",
 		"ServerReplicatePawnCullDistance":      "SERVER_REPLICATE_PAWN_CULL_DISTANCE",
 		"bIsRandomizerPalLevelRandom":          "IS_RANDOMIZER_PAL_LEVEL_RANDOM",
+		"CrossplayPlatforms":                   "CROSSPLAY_PLATFORMS",
+		"bAllowGlobalPalboxExport":             "ALLOW_GLOBAL_PALBOX_EXPORT",
+		"bAllowGlobalPalboxImport":             "ALLOW_GLOBAL_PALBOX_IMPORT",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -212,7 +214,6 @@ func main() {
 		"bShowPlayerList":                      "TrueFalse", //bShowPlayerList=False
 		"RESTAPIEnabled":                       "TrueFalse", //RESTAPIEnabled=False
 		"RESTAPIPort":                          "Numeric",   //RESTAPIPort=8212
-		"AllowConnectPlatform":                 "String",    //AllowConnectPlatform=Steam
 		"bIsUseBackupSaveData":                 "TrueFalse", //bIsUseBackupSaveData=True
 		"LogFormatType":                        "String",    //LogFormatType=Text
 		"SupplyDropSpan":                       "Numeric",   //SupplyDropSpan=180
@@ -230,6 +231,9 @@ func main() {
 		"MaxBuildingLimitNum":                  "Numeric",   //MaxBuildingLimitNum=0,
 		"ServerReplicatePawnCullDistance":      "Floating",  //ServerReplicatePawnCullDistance=15000.000000,
 		"bIsRandomizerPalLevelRandom":          "TrueFalse", //bIsRandomizerPalLevelRandom=False,
+		"CrossplayPlatforms":                   "String", //CrossplayPlatforms=(Steam,Xbox,PS5,Mac)
+		"bAllowGlobalPalboxExport":             "TrueFalse", //bAllowGlobalPalboxExport=True
+		"bAllowGlobalPalboxImport":             "TrueFalse", //bAllowGlobalPalboxImport=False
 
 		// Add other keys as needed
 	}
