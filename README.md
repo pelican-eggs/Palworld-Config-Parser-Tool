@@ -98,7 +98,11 @@ If you want to support my work:
 | EnablePredatorBossPal                   | ENABLE_PREDATOR_BOSS_PAL                  |                   |
 | MaxBuildingLimitNum                     | MAX_BUILDING_LIMIT_NUM                    |                   |
 | ServerReplicatePawnCullDistance         | SERVER_REPLICATE_PAWN_CULL_DISTANCE       |                   |
-
+| bIsRandomizerPalLevelRandom             | IS_RANDOMIZER_PAL_LEVEL_RANDOM            |                   |
+| CrossplayPlatforms                      | CROSSPLAY_PLATFORMS                       |                   |
+| bAllowGlobalPalboxExport                | ALLOW_GLOBAL_PALBOX_EXPORT                |                   |
+| bAllowGlobalPalboxImport                | ALLOW_GLOBAL_PALBOX_IMPORT                |                   |
+| CharacterRecreateInHardcore             | CHARACTER_RECREATE_IN_HARDCORE            |                   |
 
 # Notes
 
