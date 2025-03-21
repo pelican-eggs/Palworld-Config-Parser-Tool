@@ -140,6 +140,7 @@ func main() {
 		"CrossplayPlatforms":                   "CROSSPLAY_PLATFORMS",
 		"bAllowGlobalPalboxExport":             "ALLOW_GLOBAL_PALBOX_EXPORT",
 		"bAllowGlobalPalboxImport":             "ALLOW_GLOBAL_PALBOX_IMPORT",
+		"bCharacterRecreateInHardcore":         "CHARACTER_RECREATE_IN_HARDCORE",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -234,6 +235,7 @@ func main() {
 		"CrossplayPlatforms":                   "String", //CrossplayPlatforms=(Steam,Xbox,PS5,Mac)
 		"bAllowGlobalPalboxExport":             "TrueFalse", //bAllowGlobalPalboxExport=True
 		"bAllowGlobalPalboxImport":             "TrueFalse", //bAllowGlobalPalboxImport=False
+		"bCharacterRecreateInHardcore":             "TrueFalse", //bCharacterRecreateInHardcore=False
 
 		// Add other keys as needed
 	}
