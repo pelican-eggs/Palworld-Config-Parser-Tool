@@ -99,7 +99,6 @@ If you want to support my work:
 | MaxBuildingLimitNum                     | MAX_BUILDING_LIMIT_NUM                    |                   |
 | ServerReplicatePawnCullDistance         | SERVER_REPLICATE_PAWN_CULL_DISTANCE       |                   |
 | bIsRandomizerPalLevelRandom             | IS_RANDOMIZER_PAL_LEVEL_RANDOM            |                   |
-| CrossplayPlatforms                      | CROSSPLAY_PLATFORMS                       |                   |
 | bAllowGlobalPalboxExport                | ALLOW_GLOBAL_PALBOX_EXPORT                |                   |
 | bAllowGlobalPalboxImport                | ALLOW_GLOBAL_PALBOX_IMPORT                |                   |
 | CharacterRecreateInHardcore             | CHARACTER_RECREATE_IN_HARDCORE            |                   |
@@ -112,6 +111,8 @@ If you want to support my work:
 - If the variable `WINEPREFIX` exists, then from v1.0.10 or later, you can run the Linux binary and it will try to use the Windows path.
 - If Proton is installed, then you can also run the Windows version with the Linux binary.
 - There is some very basic validation on the variables.
+- Because the way this parser works we can not parse the `CrossplayPlatforms` field.
+
 
 | Rule       | Value                                   | Example          |
 |------------|-----------------------------------------|------------------|

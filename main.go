@@ -137,7 +137,6 @@ func main() {
 		"MaxBuildingLimitNum":                  "MAX_BUILDING_LIMIT_NUM",
 		"ServerReplicatePawnCullDistance":      "SERVER_REPLICATE_PAWN_CULL_DISTANCE",
 		"bIsRandomizerPalLevelRandom":          "IS_RANDOMIZER_PAL_LEVEL_RANDOM",
-		"CrossplayPlatforms":                   "CROSSPLAY_PLATFORMS",
 		"bAllowGlobalPalboxExport":             "ALLOW_GLOBAL_PALBOX_EXPORT",
 		"bAllowGlobalPalboxImport":             "ALLOW_GLOBAL_PALBOX_IMPORT",
 		"bCharacterRecreateInHardcore":         "CHARACTER_RECREATE_IN_HARDCORE",
@@ -232,7 +231,6 @@ func main() {
 		"MaxBuildingLimitNum":                  "Numeric",   //MaxBuildingLimitNum=0,
 		"ServerReplicatePawnCullDistance":      "Floating",  //ServerReplicatePawnCullDistance=15000.000000,
 		"bIsRandomizerPalLevelRandom":          "TrueFalse", //bIsRandomizerPalLevelRandom=False,
-		"CrossplayPlatforms":                   "String", //CrossplayPlatforms=(Steam,Xbox,PS5,Mac)
 		"bAllowGlobalPalboxExport":             "TrueFalse", //bAllowGlobalPalboxExport=True
 		"bAllowGlobalPalboxImport":             "TrueFalse", //bAllowGlobalPalboxImport=False
 		"bCharacterRecreateInHardcore":             "TrueFalse", //bCharacterRecreateInHardcore=False
