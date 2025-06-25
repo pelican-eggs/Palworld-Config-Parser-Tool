@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.20"
+const Version = "v1.0.21"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -140,6 +140,8 @@ func main() {
 		"bAllowGlobalPalboxExport":             "ALLOW_GLOBAL_PALBOX_EXPORT",
 		"bAllowGlobalPalboxImport":             "ALLOW_GLOBAL_PALBOX_IMPORT",
 		"bCharacterRecreateInHardcore":         "CHARACTER_RECREATE_IN_HARDCORE",
+		"EquipmentDurabilityDamageRate":        "EQUIPMENT_DURABILITY_DAMAGE_RATE",
+		"ItemContainerForceMarkDirtyInterval":  "ITEM_CONTAINER_FORCE_MARK_DIRTY_INTERVAL",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -233,7 +235,9 @@ func main() {
 		"bIsRandomizerPalLevelRandom":          "TrueFalse", //bIsRandomizerPalLevelRandom=False,
 		"bAllowGlobalPalboxExport":             "TrueFalse", //bAllowGlobalPalboxExport=True
 		"bAllowGlobalPalboxImport":             "TrueFalse", //bAllowGlobalPalboxImport=False
-		"bCharacterRecreateInHardcore":             "TrueFalse", //bCharacterRecreateInHardcore=False
+		"bCharacterRecreateInHardcore":         "TrueFalse", //bCharacterRecreateInHardcore=False
+		"EquipmentDurabilityDamageRate":        "Floating",  //EquipmentDurabilityDamageRate=1.000000,
+		"ItemContainerForceMarkDirtyInterval":  "Floating",  //ItemContainerForceMarkDirtyInterval=1.000000
 
 		// Add other keys as needed
 	}
