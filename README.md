@@ -102,6 +102,8 @@ If you want to support my work:
 | bAllowGlobalPalboxExport                | ALLOW_GLOBAL_PALBOX_EXPORT                |                   |
 | bAllowGlobalPalboxImport                | ALLOW_GLOBAL_PALBOX_IMPORT                |                   |
 | CharacterRecreateInHardcore             | CHARACTER_RECREATE_IN_HARDCORE            |                   |
+| EquipmentDurabilityDamageRate           | EQUIPMENT_DURABILITY_DAMAGE_RATE          |                   |
+| ItemContainerForceMarkDirtyInterval     | ITEM_CONTAINER_FORCE_MARK_DIRTY_INTERVAL  |                   |
 
 # Notes
 
