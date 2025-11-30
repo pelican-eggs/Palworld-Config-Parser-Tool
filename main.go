@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.21"
+const Version = "v1.0.22"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -49,6 +49,31 @@ func main() {
 		"AlphaDash": func(val string) bool {
 			// AlphaDash: Allows only alphanumeric characters and dashes (e.g., "abc123", "test-123")
 			return regexp.MustCompile(`^[a-zA-Z0-9_-]+$`).MatchString(val)
+		},
+		"CrossplayPlatforms": func(val string) bool {
+			// CrossplayPlatforms: Allows platform lists like "Steam,Xbox,PS5,Mac" or single platforms
+			// Remove any existing parentheses and trim spaces
+			val = strings.Trim(val, "() ")
+			if val == "" {
+				return true // Empty is allowed (means no crossplay)
+			}
+			
+			// Split by comma and validate each platform
+			platforms := strings.Split(val, ",")
+			validPlatforms := map[string]bool{
+				"Steam": true,
+				"Xbox":  true,
+				"PS5":   true,
+				"Mac":   true,
+			}
+			
+			for _, platform := range platforms {
+				platform = strings.TrimSpace(platform)
+				if platform != "" && !validPlatforms[platform] {
+					return false // Invalid platform found
+				}
+			}
+			return true
 		},
 		// Add more validation rules as needed
 	}
@@ -142,6 +167,8 @@ func main() {
 		"bCharacterRecreateInHardcore":         "CHARACTER_RECREATE_IN_HARDCORE",
 		"EquipmentDurabilityDamageRate":        "EQUIPMENT_DURABILITY_DAMAGE_RATE",
 		"ItemContainerForceMarkDirtyInterval":  "ITEM_CONTAINER_FORCE_MARK_DIRTY_INTERVAL",
+		"ItemCorruptionMultiplier":             "ITEM_CORRUPTION_MULTIPLIER",
+		"CrossplayPlatforms":                   "CROSSPLAY_PLATFORMS",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -238,6 +265,8 @@ func main() {
 		"bCharacterRecreateInHardcore":         "TrueFalse", //bCharacterRecreateInHardcore=False
 		"EquipmentDurabilityDamageRate":        "Floating",  //EquipmentDurabilityDamageRate=1.000000,
 		"ItemContainerForceMarkDirtyInterval":  "Floating",  //ItemContainerForceMarkDirtyInterval=1.000000
+		"ItemCorruptionMultiplier":             "Floating",  //ItemCorruptionMultiplier=1.000000
+		"CrossplayPlatforms":                   "CrossplayPlatforms", //CrossplayPlatforms=(Steam,Xbox,PS5,Mac)
 
 		// Add other keys as needed
 	}
@@ -424,8 +453,16 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 		}
 	}
 
+	// Special handling for CrossplayPlatforms - add parentheses
+	if key == "CrossplayPlatforms" && value != "" {
+		// Remove any existing parentheses and trim
+		value = strings.Trim(value, "() ")
+		if value != "" {
+			value = fmt.Sprintf(`(%s)`, value)
+		}
+	}
 	// If addQuotes is true and the key requires quotes, add quotes around the value
-	if addQuotes {
+	else if addQuotes {
 		value = fmt.Sprintf(`"%s"`, value)
 	}
 

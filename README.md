@@ -104,6 +104,8 @@ If you want to support my work:
 | CharacterRecreateInHardcore             | CHARACTER_RECREATE_IN_HARDCORE            |                   |
 | EquipmentDurabilityDamageRate           | EQUIPMENT_DURABILITY_DAMAGE_RATE          |                   |
 | ItemContainerForceMarkDirtyInterval     | ITEM_CONTAINER_FORCE_MARK_DIRTY_INTERVAL  |                   |
+| ItemCorruptionMultiplier                | ITEM_CORRUPTION_MULTIPLIER                |                   |
+| CrossplayPlatforms                      | CROSSPLAY_PLATFORMS                       |                   |
 
 # Notes
 
@@ -113,13 +115,19 @@ If you want to support my work:
 - If the variable `WINEPREFIX` exists, then from v1.0.10 or later, you can run the Linux binary and it will try to use the Windows path.
 - If Proton is installed, then you can also run the Windows version with the Linux binary.
 - There is some very basic validation on the variables.
-- Because the way this parser works we can not parse the `CrossplayPlatforms` field.
 
 
-| Rule       | Value                                   | Example          |
-|------------|-----------------------------------------|------------------|
-| Numeric    | Allows only positive numeric values     | "123" or "25565" |
-| Floating   | Allows only positive floating-point values | "0.005" or "3.14" |
-| TrueFalse  | Allows values "True" or "False"         | "True" or "False"|
-| String     | Everything                              | "this is a test" or "test" |
-| AlphaDash  | Allows only alphanumeric characters and dashes | "abc123" or "test-123" |
+| Rule              | Value                                   | Example                          |
+|-------------------|-----------------------------------------|----------------------------------|
+| Numeric           | Allows only positive numeric values     | "123" or "25565"                 |
+| Floating          | Allows only positive floating-point values | "0.005" or "3.14"              |
+| TrueFalse         | Allows values "True" or "False"         | "True" or "False"                |
+| String            | Everything                              | "this is a test" or "test"       |
+| AlphaDash         | Allows only alphanumeric characters and dashes | "abc123" or "test-123"     |
+| CrossplayPlatforms| Allows platform lists with valid platforms | "Steam,Xbox,PS5,Mac" or "Steam" |
+
+**Note for CrossplayPlatforms:**
+- Valid platforms: `Steam`, `Xbox`, `PS5`, `Mac`
+- Format: Comma-separated list (e.g., "Steam,Xbox")
+- Empty value is allowed (disables crossplay)
+- Parentheses are automatically added in the INI file
