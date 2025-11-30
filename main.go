@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.22"
+const Version = "v1.0.23"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -279,6 +279,7 @@ func main() {
 		"ServerDescription": true,
 		"BanListURL":        true,
 		"PublicIP":          true,
+		"RandomizerSeed":    true,
 		// Add other keys as needed
 	}
 	// Determine the operating system
