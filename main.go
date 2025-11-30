@@ -462,7 +462,7 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 		}
 	}
 	// If addQuotes is true and the key requires quotes, add quotes around the value
-	else if addQuotes {
+	if addQuotes {
 		value = fmt.Sprintf(`"%s"`, value)
 	}
 
