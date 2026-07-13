@@ -23,14 +23,14 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04]
-        go: ["1.25.4"]
+        go: ["1.25.12"]
         goos: [linux, windows]
         goarch: [amd64, arm64]
 
     steps:
       # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Setup Go environment
       - name: Setup Go
@@ -76,7 +76,7 @@ jobs:
       # Upload dist folder as an artifact
       - name: Upload linux build artifacts
         if: matrix.goos == 'linux'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
           path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}
@@ -84,7 +84,7 @@ jobs:
 
       - name: Upload linux build artifacts
         if: matrix.goos == 'windows'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
           path: dist/PalworldServerConfigParser-${{ matrix.goos }}-${{ matrix.goarch }}.exe
@@ -99,29 +99,29 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Download the dist artifact from the build job
       - name: Download dist artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: "PalworldServerConfigParser-linux-amd64"
           path: "dist"
       
       - name: Download dist artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: "PalworldServerConfigParser-linux-arm64"
           path: "dist"
       
       - name: Download dist artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: "PalworldServerConfigParser-windows-amd64.exe"
           path: "dist"
   
       - name: Download dist artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: "PalworldServerConfigParser-windows-arm64.exe"
           path: "dist"       
@@ -135,7 +135,7 @@ jobs:
           
       - name: Generate a token
         id: generate-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
