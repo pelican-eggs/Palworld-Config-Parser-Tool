@@ -13,7 +13,7 @@ import (
 )
 
 // Version of the program
-const Version = "v1.0.23"
+const Version = "v1.0.24"
 
 func main() {
 	fmt.Println("Program Version:", Version)
@@ -428,29 +428,46 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 
 	// Line 340-364 is chatgpt generated but seems to work just fine
 	var endPos int
-	// normal case, key=value,
-	endPos_1 := strings.Index(contentStr[pos:], ",")
-	// Edge case as the last key has no ending ,
-	endPos_2 := strings.Index(contentStr[pos:], ")")
 
-	// Check if both endPos_1 and endPos_2 are -1, indicating neither comma nor closing parenthesis was found
-	if endPos_1 == -1 && endPos_2 == -1 {
-		// Set endPos to the end of the string
-		endPos = len(contentStr)
-	} else {
-		// If either endPos_1 or endPos_2 is -1, replace it with a large value
-		if endPos_1 == -1 {
-			endPos_1 = len(contentStr) + 1
-		}
-		if endPos_2 == -1 {
-			endPos_2 = len(contentStr) + 1
-		}
-
-		// Choose the minimum of endPos_1 and endPos_2
-		if endPos_1 <= endPos_2 {
-			endPos = endPos_1
+	if key == "CrossplayPlatforms" {
+		// CrossplayPlatforms' value is itself a parenthesized, comma-separated
+		// list, e.g. (Steam,Xbox,PS5,Mac). The generic "first comma or paren"
+		// logic below would stop at the first comma INSIDE that list instead
+		// of the closing ")" that actually ends the field, corrupting the
+		// value. So for this key we always end at the matching closing paren.
+		closeParen := strings.Index(contentStr[pos:], ")")
+		if closeParen == -1 {
+			endPos = len(contentStr)
 		} else {
-			endPos = endPos_2
+			// +1 to include the ")" itself so it gets replaced/removed and
+			// not duplicated when we re-add parentheses around the new value.
+			endPos = closeParen + 1
+		}
+	} else {
+		// normal case, key=value,
+		endPos_1 := strings.Index(contentStr[pos:], ",")
+		// Edge case as the last key has no ending ,
+		endPos_2 := strings.Index(contentStr[pos:], ")")
+
+		// Check if both endPos_1 and endPos_2 are -1, indicating neither comma nor closing parenthesis was found
+		if endPos_1 == -1 && endPos_2 == -1 {
+			// Set endPos to the end of the string
+			endPos = len(contentStr)
+		} else {
+			// If either endPos_1 or endPos_2 is -1, replace it with a large value
+			if endPos_1 == -1 {
+				endPos_1 = len(contentStr) + 1
+			}
+			if endPos_2 == -1 {
+				endPos_2 = len(contentStr) + 1
+			}
+
+			// Choose the minimum of endPos_1 and endPos_2
+			if endPos_1 <= endPos_2 {
+				endPos = endPos_1
+			} else {
+				endPos = endPos_2
+			}
 		}
 	}
 
