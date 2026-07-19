@@ -426,7 +426,6 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 		return
 	}
 
-	// Line 340-364 is chatgpt generated but seems to work just fine
 	var endPos int
 
 	if key == "CrossplayPlatforms" {
@@ -444,29 +443,64 @@ func setINIValue(content *[]byte, key, value string, addQuotes bool) {
 			endPos = closeParen + 1
 		}
 	} else {
-		// normal case, key=value,
-		endPos_1 := strings.Index(contentStr[pos:], ",")
-		// Edge case as the last key has no ending ,
-		endPos_2 := strings.Index(contentStr[pos:], ")")
-
-		// Check if both endPos_1 and endPos_2 are -1, indicating neither comma nor closing parenthesis was found
-		if endPos_1 == -1 && endPos_2 == -1 {
-			// Set endPos to the end of the string
-			endPos = len(contentStr)
-		} else {
-			// If either endPos_1 or endPos_2 is -1, replace it with a large value
-			if endPos_1 == -1 {
-				endPos_1 = len(contentStr) + 1
-			}
-			if endPos_2 == -1 {
-				endPos_2 = len(contentStr) + 1
-			}
-
-			// Choose the minimum of endPos_1 and endPos_2
-			if endPos_1 <= endPos_2 {
-				endPos = endPos_1
+		// Check if the value is quoted (starts with ")
+		valueStartIdx := pos + len(searchStr)
+		if valueStartIdx < len(contentStr) && contentStr[valueStartIdx] == '"' {
+			// Quoted value: find the closing quote, then look for comma/paren after it
+			// Search for the next " after the opening one
+			closeQuote := strings.Index(contentStr[valueStartIdx+1:], "\"")
+			if closeQuote == -1 {
+				// No closing quote found — fallback to end of content
+				endPos = len(contentStr)
 			} else {
-				endPos = endPos_2
+				// Position of closing quote relative to pos
+				closeQuotePos := valueStartIdx + 1 + closeQuote
+				// Look for comma or paren right after the closing quote
+				if closeQuotePos+1 < len(contentStr) && contentStr[closeQuotePos+1] == ',' {
+					// endPos points to the comma (separator), not past it
+					endPos = closeQuotePos - pos + 1
+				} else if closeQuotePos+1 < len(contentStr) && contentStr[closeQuotePos+1] == ')' {
+					endPos = closeQuotePos - pos + 1
+				} else {
+					// Something unexpected after closing quote — fallback to comma/paren search
+					endPos_1 := strings.Index(contentStr[pos:], ",")
+					endPos_2 := strings.Index(contentStr[pos:], ")")
+					if endPos_1 == -1 && endPos_2 == -1 {
+						endPos = len(contentStr)
+					} else {
+						if endPos_1 == -1 {
+							endPos_1 = len(contentStr) + 1
+						}
+						if endPos_2 == -1 {
+							endPos_2 = len(contentStr) + 1
+						}
+						if endPos_1 <= endPos_2 {
+							endPos = endPos_1
+						} else {
+							endPos = endPos_2
+						}
+					}
+				}
+			}
+		} else {
+			// Unquoted value: original logic — find the first comma or closing paren
+			endPos_1 := strings.Index(contentStr[pos:], ",")
+			endPos_2 := strings.Index(contentStr[pos:], ")")
+
+			if endPos_1 == -1 && endPos_2 == -1 {
+				endPos = len(contentStr)
+			} else {
+				if endPos_1 == -1 {
+					endPos_1 = len(contentStr) + 1
+				}
+				if endPos_2 == -1 {
+					endPos_2 = len(contentStr) + 1
+				}
+				if endPos_1 <= endPos_2 {
+					endPos = endPos_1
+				} else {
+					endPos = endPos_2
+				}
 			}
 		}
 	}
