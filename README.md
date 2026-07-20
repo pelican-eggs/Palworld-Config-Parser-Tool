@@ -105,6 +105,9 @@ If you want to support my work:
 | ItemContainerForceMarkDirtyInterval     | ITEM_CONTAINER_FORCE_MARK_DIRTY_INTERVAL  |                   |
 | ItemCorruptionMultiplier                | ITEM_CORRUPTION_MULTIPLIER                |                   |
 | CrossplayPlatforms                      | CROSSPLAY_PLATFORMS                       |                   |
+| bEnableVoiceChat                        | ENABLE_VOICE_CHAT                         |                   |
+| VoiceChatMaxVolumeDistance              | VOICE_CHAT_MAX_VOLUME_DISTANCE            |                   |
+| VoiceChatZeroVolumeDistance             | VOICE_CHAT_ZERO_VOLUME_DISTANCE           |                   |
 
 # Notes
 

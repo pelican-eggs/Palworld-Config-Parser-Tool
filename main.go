@@ -169,6 +169,9 @@ func main() {
 		"ItemContainerForceMarkDirtyInterval":  "ITEM_CONTAINER_FORCE_MARK_DIRTY_INTERVAL",
 		"ItemCorruptionMultiplier":             "ITEM_CORRUPTION_MULTIPLIER",
 		"CrossplayPlatforms":                   "CROSSPLAY_PLATFORMS",
+		"bEnableVoiceChat":                     "ENABLE_VOICE_CHAT",
+		"VoiceChatMaxVolumeDistance":           "VOICE_CHAT_MAX_VOLUME_DISTANCE",
+		"VoiceChatZeroVolumeDistance":          "VOICE_CHAT_ZERO_VOLUME_DISTANCE",
 		// Add other environment variables and corresponding INI keys here
 	}
 
@@ -267,6 +270,9 @@ func main() {
 		"ItemContainerForceMarkDirtyInterval":  "Floating",  //ItemContainerForceMarkDirtyInterval=1.000000
 		"ItemCorruptionMultiplier":             "Floating",  //ItemCorruptionMultiplier=1.000000
 		"CrossplayPlatforms":                   "CrossplayPlatforms", //CrossplayPlatforms=(Steam,Xbox,PS5,Mac)
+		"bEnableVoiceChat":                     "TrueFalse", //bEnableVoiceChat=False
+		"VoiceChatMaxVolumeDistance":           "Floating",  //VoiceChatMaxVolumeDistance=3000.000000
+		"VoiceChatZeroVolumeDistance":          "Floating",  //VoiceChatZeroVolumeDistance=15000.000000
 
 		// Add other keys as needed
 	}
