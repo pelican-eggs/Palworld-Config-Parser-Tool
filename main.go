@@ -364,40 +364,33 @@ func main() {
 		//LookupEnv retrieves the value of the environment variable named by the key. If the variable is present in the environment the value (which may be empty) is returned and the boolean is true. Otherwise the returned value will be empty and the boolean will be false.
 		val, ok := os.LookupEnv(value)
 
-		// If the environment variable doesn't exist skip
-		if !ok {
+		// If the environment variable doesn't exist, or exists but is empty,
+		// leave the INI value untouched. An empty variable is treated exactly
+		// the same as an unset one.
+		if !ok || val == "" {
 			continue
 		}
-
-		//The variable exitis but is empty, so it will fail the validation so just set it to empty
-		if ok && val == "" {
-			fmt.Printf("Updating empty key: %s\n", key)
-			setINIValue(&iniContent, key, "", envVarsQuotes[key])
-		}
-
-		//The Variable is set and it is not empty so validate and if true then set it in the file
-		if ok && val != "" {
-			// Check if there's a validation rule for the key
-			if ruleName, ok := envVarsValidationRules[key]; ok {
-				// Check if there's a validation function for the rule name
-				if rule, ok := ValidationRules[ruleName]; ok {
-					// Validate the value based on the rule
-					if !rule(val) {
-						fmt.Printf("Validation failed for key: %s, value: %s\n", key, val)
-						continue
-					}
-				} else {
-					fmt.Printf("No validation rule found for key: %s\n", key)
+ 
+		// The variable is set and not empty, so validate it and, if valid, set it in the file
+		// Check if there's a validation rule for the key
+		if ruleName, ok := envVarsValidationRules[key]; ok {
+			// Check if there's a validation function for the rule name
+			if rule, ok := ValidationRules[ruleName]; ok {
+				// Validate the value based on the rule
+				if !rule(val) {
+					fmt.Printf("Validation failed for key: %s, value: %s\n", key, val)
+					continue
 				}
 			} else {
-				fmt.Printf("No validation rule specified for key: %s\n", key)
+				fmt.Printf("No validation rule found for key: %s\n", key)
 			}
-
-			// Update the value in the INI file
-			fmt.Printf("Updating key: %s with value: %s\n", key, val)
-			setINIValue(&iniContent, key, val, envVarsQuotes[key])
-
+		} else {
+			fmt.Printf("No validation rule specified for key: %s\n", key)
 		}
+ 
+		// Update the value in the INI file
+		fmt.Printf("Updating key: %s with value: %s\n", key, val)
+		setINIValue(&iniContent, key, val, envVarsQuotes[key])
 	}
 
 	// Write the updated contents back to the INI file
