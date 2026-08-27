@@ -2,7 +2,7 @@
 
 A simple tool that replaces values in the Palworld dedicated server config file based on environment variables.
 
-This tool was made with Pterodactyl in mind but does work outside of it.
+This tool was made with Pelican in mind but does work outside of it.
 
 ![afbeelding](https://github.com/QuintenQVD0/Palword-server-config-parser/assets/67589015/1006e731-b397-4f39-9bca-69cfee4fd2f2)
 
@@ -13,7 +13,7 @@ If you want to support my work:
 
 ## Key with Variables
 
-| Config Keyword                          | ENV Variable                              | Pterodactyl Stock |
+| Config Keyword                          | ENV Variable                              | Pelican Stock |
 |-----------------------------------------|-------------------------------------------|-------------------|
 | Difficulty                              | DIFFICULTY                                |                   |
 | DayTimeSpeedRate                        | DAY_TIME_SPEED_RATE                       |                   |
